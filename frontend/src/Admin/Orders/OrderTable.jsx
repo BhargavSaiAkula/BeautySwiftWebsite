@@ -261,13 +261,14 @@ const OrderTable = () => {
 
   return (
     <div>
-    <h1 className='text-2xl p-8 pl-2'>Appointments List</h1>
+    <h1 className='text-2xl p-8 pl-2'>Recent Appointments </h1>
     <div className=' flex  '>
       <div className='overflow-x-auto w-full max-w-4xl'>
         <table className='min-w-full bg-white shadow-md rounded-lg overflow-hidden'>
           <thead className='bg-customBorder'>
             <tr>
-            <th className='py-2 px-4 border-b border-customBorder'>id</th>
+            
+            <th className='py-2 px-4 border-b border-customBorder'>Service</th>
               <th className='py-2 px-4 border-b border-customBorder'> Customer Name</th>
               <th className='py-2 px-4 border-b border-customBorder'>Email</th>
               <th className='py-2 px-4 border-b border-customBorder'>Phone</th>
@@ -279,7 +280,6 @@ const OrderTable = () => {
             {
               data.map((item, index) => (
                 <tr key={index} className='bg-customBackground'>
-                <td className='py-2 px-4 border-b border-customBorder text-center'>{item.id}</td>
                 <td className='py-2 px-4 border-b border-customBorder text-center'>{item.name}</td>
                   <td className='py-2 px-4 border-b border-customBorder text-center'>{item.email}</td>
                   <td className='py-2 px-4 border-b border-customBorder text-center'>{item.phone}</td>

@@ -9,10 +9,12 @@ const RestaurantSchema = new mongoose.Schema({
   name: String,
   description: String,
   cuisineType: String,
-  address: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Address",
-  },
+  address:String,
+   //{
+  //   // type: mongoose.Schema.Types.ObjectId,
+  //   type:String,
+  //   ref: "Address",
+  // },
   contactInformation: {},
   openingHours: String,
   orders: [{

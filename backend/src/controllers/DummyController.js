@@ -1,21 +1,25 @@
 const dummyModel = require("../models/dummy.model");
+const moment = require('moment');
 
 const PostDataDummy = async (req, res, next) => {
   try {
-    const { firstname, lastname, phone, email, date, time } = req.body;
+    const { firstname, lastname, phone, email, date, time, food } = req.body;
     const dump = {
-      name: firstname + lastname,
+      name: `${firstname} ${lastname}`, // Adding space between firstname and lastname
       email: email,
       phone: phone,
-      date: date,
-      time: time,
+      date: moment(date).toDate(), // Parse the date string to Date object
+      time: moment(time, "hh:mm A").toDate(), // Parse the time string to Date object
+      Food: food // Changed to match the schema field name
     };
 
+    console.log(dump);
     console.log("I am inside dummy data");
-    const newData = new dummyModel({ ...dump });
+    
+    const newData = new dummyModel(dump);
     const response = await newData.save();
+    
     console.log(response);
-
     res.status(200).json({ message: "Data is submitted" });
   } catch (err) {
     console.error(err); // Add error logging
@@ -25,7 +29,7 @@ const PostDataDummy = async (req, res, next) => {
 
 const GetDataDummy = async (req, res) => {
   try {
-    const data = await dummyModel.find({});
+    const data = await dummyModel.find({}).populate('Food'); // Ensure populated data
     res.json(data);
   } catch (err) {
     console.error(err); // Add error logging
@@ -34,4 +38,3 @@ const GetDataDummy = async (req, res) => {
 };
 
 module.exports = { PostDataDummy, GetDataDummy };
-
