@@ -92,13 +92,13 @@ const MenuItemTable = ({ isDashboard, name }) => {
             <TableHead>
               <TableRow>
                 <TableCell>Image</TableCell>
-                <TableCell>Title</TableCell>
-                {/* <TableCell sx={{ textAlign: "center" }}>Category</TableCell> */}
-                {!isDashboard && (
+                <TableCell>Service</TableCell>
+                 {/* <TableCell sx={{ textAlign: "center" }}></TableCell>  */}
+                 {!isDashboard && (
                   <TableCell sx={{ textAlign: "" }}>
-                    Ingredients
+                    .
                   </TableCell>
-                )}
+                )} 
                 <TableCell sx={{ textAlign: "center" }}>Price</TableCell>
                 {/* <TableCell sx={{ textAlign: "center" }}>Quantity</TableCell> */}
 
@@ -181,7 +181,7 @@ const MenuItemTable = ({ isDashboard, name }) => {
                       variant="text"
                       onClick={() => handleFoodAvialability(item._id)}
                     >
-                      {item.available ? "in stock" : "out of stock"}
+                      {item.available ? " Available" : "Not Available"}
                     </Button>
                   </TableCell>
 

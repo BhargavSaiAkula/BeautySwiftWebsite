@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../../State/Authentication/Action";
 import { pink } from "@mui/material/colors";
 
+
 const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -61,17 +62,21 @@ const Navbar = () => {
           onClick={navigateToHome}
           className="lg:mr-10 cursor-pointer flex items-center space-x-4"
         >
-          <li className="logo font-semibold text-yellow-300 text-3xl">
-          Beauty <span class="text-customColor">Swift</span>
-          </li>
+<img className="img" src="https://media.licdn.com/dms/image/D560BAQGUYOVc8LFh7g/company-logo_200_200/0/1712577156824?e=1724284800&v=beta&t=CkLsLEA2VhFXu3faXJoYi_qoEeT_HDrJkII-kuAmGTY" alt="Company Logo"/>
+<ul>
+  <li className="logo font-semibold text-yellow-300 text-3xl">
+    Beauty <span className="text-customColor">Swift</span>
+  </li>
+</ul>
+
         </div>
       </div>
       <div className="flex items-center space-x-2 lg:space-x-10">
-        <div>
+        {/* <div>
           <IconButton onClick={() => navigate("/search")}>
             <SearchIcon sx={{ fontSize: "1.5rem" }} />
           </IconButton>
-        </div>
+        </div> */}
         <div className="flex items-center space-x-2">
           {user?.fullName ? (
             <span
@@ -117,11 +122,11 @@ const Navbar = () => {
           </Menu>
         </div>
 
-        <IconButton onClick={navigateToCart}>
+        {/* <IconButton onClick={navigateToCart}>
           <Badge color="black" badgeContent={cartItemsCount}>
             <ShoppingCartIcon className="text-4xl" sx={{ fontSize: "2rem" }} />
           </Badge>
-        </IconButton>
+        </IconButton> */}
       </div>
 
       <Auth handleClose={handleCloseAuthModel} />

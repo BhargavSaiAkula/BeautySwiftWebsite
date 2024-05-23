@@ -240,64 +240,137 @@
 
 // export default OrdersTable;
 
+// import React, { useEffect, useState } from 'react';
+// import axios from 'axios';
+
+// const OrderTable = () => {
+//   const [data, setData] = useState([]);
+//   const [loading,setLoading] = useState(true);
+//   const formatDate = (item) => {
+//     const date = new Date(item.date);
+//     const formattedDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear().toString().slice(2)}`;
+//     return { ...item, date: formattedDate };
+//   };
+//   useEffect(() => {
+//     axios.get('http://localhost:5454/api/dummy/getData')
+//       .then((response) =>{ 
+//         console.log(response);
+// setLoading(false)
+// setData(response.data.map(formatDate))})
+//       .catch(err => console.log(err));
+//   }, []);
+//  console.log(data);
+//   if(loading){return <h1>Loading..</h1>}
+
+  
+
+//   return (
+//     <div>
+//     <h1 className='text-2xl p-8 pl-2'>Recent Appointments </h1>
+//     <div className=' flex  '>
+//       <div className='overflow-x-auto w-full max-w-4xl'>
+//         <table className='min-w-full bg-white shadow-md rounded-lg overflow-hidden'>
+//           <thead className='bg-customBorder'>
+//             <tr>          
+//             <th className='py-2 px-4 border-b border-customBorder'>Service</th>
+//               <th className='py-2 px-4 border-b border-customBorder'> Customer Name</th>
+//               <th className='py-2 px-4 border-b border-customBorder'>Email</th>
+//               <th className='py-2 px-4 border-b border-customBorder'>Phone</th>
+//               <th className='py-2 px-4 border-b border-customBorder'>Date</th>
+//               <th className='py-2 px-4 border-b border-customBorder'>Time</th>
+//             </tr>
+//           </thead>
+//           <tbody>
+//             {
+//               data.map((item, index) => (
+//                 <tr key={index} className='bg-customBackground'>
+//                  <td className='py-2 px-4 border-b border-customBorder text-center'>{(item?.Food?.name)?item?.Food?.name:"There is no data"}</td> 
+//                 <td className='py-2 px-4 border-b border-customBorder text-center'>{item.name}</td>
+//                   <td className='py-2 px-4 border-b border-customBorder text-center'>{item.email}</td>
+//                   <td className='py-2 px-4 border-b border-customBorder text-center'>{item.phone}</td>
+//                   <td className='py-2 px-4 border-b border-customBorder text-center'>{item.date}</td>
+//                   <td className='py-2 px-4 border-b border-customBorder text-center'>{item.time}</td>
+//                 </tr>
+//               ))
+//             }
+//           </tbody>
+//         </table>
+//       </div>
+//     </div>
+//     </div>
+//   );
+// };
+
+// export default OrderTable;
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const OrderTable = () => {
   const [data, setData] = useState([]);
-  const [loading,setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
+
   const formatDate = (item) => {
     const date = new Date(item.date);
-    const formattedDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear().toString().slice(2)}`;
-    return { ...item, date: formattedDate };
+    const time = new Date(item.time);
+    
+    // Format date in 'DD MMM YYYY' format
+    const formattedDate = `${date.getDate()} ${date.toLocaleString('default', { month: 'short' })} ${date.getFullYear()}`;
+    
+    // Format time in 'hh:mm A' format
+    const formattedTime = time.toLocaleString('default', { hour: 'numeric', minute: 'numeric', hour12: true });
+
+    return { ...item, date: formattedDate, time: formattedTime };
   };
+
   useEffect(() => {
     axios.get('http://localhost:5454/api/dummy/getData')
-      .then((response) =>{ 
+      .then((response) => { 
         console.log(response);
-setLoading(false)
-setData(response.data.map(formatDate))})
+        setLoading(false);
+        setData(response.data.map(formatDate));
+      })
       .catch(err => console.log(err));
   }, []);
- console.log(data);
-  if(loading){return <h1>Loading..</h1>}
 
-  
+  console.log(data);
+
+  if (loading) {
+    return <h1>Loading..</h1>;
+  }
 
   return (
     <div>
-    <h1 className='text-2xl p-8 pl-2'>Recent Appointments </h1>
-    <div className=' flex  '>
-      <div className='overflow-x-auto w-full max-w-4xl'>
-        <table className='min-w-full bg-white shadow-md rounded-lg overflow-hidden'>
-          <thead className='bg-customBorder'>
-            <tr>          
-            <th className='py-2 px-4 border-b border-customBorder'>Service</th>
-              <th className='py-2 px-4 border-b border-customBorder'> Customer Name</th>
-              <th className='py-2 px-4 border-b border-customBorder'>Email</th>
-              <th className='py-2 px-4 border-b border-customBorder'>Phone</th>
-              <th className='py-2 px-4 border-b border-customBorder'>Date</th>
-              <th className='py-2 px-4 border-b border-customBorder'>Time</th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-              data.map((item, index) => (
-                <tr key={index} className='bg-customBackground'>
-                 <td className='py-2 px-4 border-b border-customBorder text-center'>{(item?.Food?.name)?item?.Food?.name:"There is no data"}</td> 
-
-                <td className='py-2 px-4 border-b border-customBorder text-center'>{item.name}</td>
-                  <td className='py-2 px-4 border-b border-customBorder text-center'>{item.email}</td>
-                  <td className='py-2 px-4 border-b border-customBorder text-center'>{item.phone}</td>
-                  <td className='py-2 px-4 border-b border-customBorder text-center'>{item.date}</td>
-                  <td className='py-2 px-4 border-b border-customBorder text-center'>{item.time}</td>
-                </tr>
-              ))
-            }
-          </tbody>
-        </table>
+      <h1 className='text-2xl p-8 pl-2'>Recent Appointments </h1>
+      <div className='flex'>
+        <div className='overflow-x-auto w-full max-w-4xl'>
+          <table className='min-w-full bg-white shadow-md rounded-lg overflow-hidden'>
+            <thead className='bg-customBorder'>
+              <tr>          
+                <th className='py-2 px-4 border-b border-customBorder'>Service</th>
+                <th className='py-2 px-4 border-b border-customBorder'>Customer Name</th>
+                <th className='py-2 px-4 border-b border-customBorder'>Email</th>
+                <th className='py-2 px-4 border-b border-customBorder'>Phone</th>
+                <th className='py-2 px-4 border-b border-customBorder'>Date</th>
+                <th className='py-2 px-4 border-b border-customBorder'>Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                data.map((item, index) => (
+                  <tr key={index} className='bg-customBackground'>
+                    <td className='py-2 px-4 border-b border-customBorder text-center'>{(item?.Food?.name) ? item?.Food?.name : "There is no data"}</td> 
+                    <td className='py-2 px-4 border-b border-customBorder text-center'>{item.name}</td>
+                    <td className='py-2 px-4 border-b border-customBorder text-center'>{item.email}</td>
+                    <td className='py-2 px-4 border-b border-customBorder text-center'>{item.phone}</td>
+                    <td className='py-2 px-4 border-b border-customBorder text-center'>{item.date}</td>
+                    <td className='py-2 px-4 border-b border-customBorder text-center'>{item.time}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
     </div>
   );
 };

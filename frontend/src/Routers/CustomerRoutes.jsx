@@ -10,7 +10,10 @@ import CreateRestaurantForm from '../Admin/AddRestaurants/CreateRestaurantForm'
 import Restaurant from '../customers/pages/Restaurant/Restaurant'
 import PasswordChangeSuccess from '../customers/pages/Auth/PasswordChangeSuccess'
 import NotFound from '../customers/pages/NotFound/NotFound'
-
+import SuperAdmin from '../SuperAdmin/SuperAdmin';
+import Vendors from '../SuperAdmin/Pages/Vendors/Vendors';
+import Appointment from '../SuperAdmin/Pages/Appointment/Appointment';
+import Customers from '../SuperAdmin/Pages/Customers/Customers';
 
 
 const CustomerRoutes = () => {
@@ -29,6 +32,11 @@ const CustomerRoutes = () => {
             <Route path='/search' element={<Search/>}/>
             <Route path='/admin/add-restaurant' element={<CreateRestaurantForm/>}/>
             <Route exact path='/password_change_success' element={<PasswordChangeSuccess/>}/>
+            <Route exact path='/admin' element={<SuperAdmin/>}/>
+            <Route exact path='/vendors' element={<Vendors/>}/>
+            <Route path="/appointment" element={<Appointment />} />
+            <Route path="/customers" element={<Customers />} /> 
+
             <Route exact path='/*' element={<NotFound/>}/>
         </Routes>
     </div>

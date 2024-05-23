@@ -23,6 +23,7 @@ const Routers = () => {
         element={<AdminRouters/>}
       />
       <Route path="/*" element={<CustomerRoutes />} />
+      {/* <Route Path="/super-admin" element={<SuperAdmin/>}/> */}
     </Routes>
     </>
     
