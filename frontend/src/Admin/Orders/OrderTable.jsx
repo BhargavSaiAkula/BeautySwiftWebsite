@@ -245,19 +245,24 @@ import axios from 'axios';
 
 const OrderTable = () => {
   const [data, setData] = useState([]);
-
-  useEffect(() => {
-    axios.get('http://localhost:5454/api/dummy/getData')
-      .then(response => setData(response.data.map(formatDate)))
-      .catch(err => console.log(err));
-  }, []);
-
-  // Function to format date from "Sat May 18 2024 05:30:00 GMT+0530 (India Standard Time)" to "22-05-24"
+  const [loading,setLoading] = useState(true);
   const formatDate = (item) => {
     const date = new Date(item.date);
     const formattedDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear().toString().slice(2)}`;
     return { ...item, date: formattedDate };
   };
+  useEffect(() => {
+    axios.get('http://localhost:5454/api/dummy/getData')
+      .then((response) =>{ 
+        console.log(response);
+setLoading(false)
+setData(response.data.map(formatDate))})
+      .catch(err => console.log(err));
+  }, []);
+ console.log(data);
+  if(loading){return <h1>Loading..</h1>}
+
+  
 
   return (
     <div>
@@ -266,8 +271,7 @@ const OrderTable = () => {
       <div className='overflow-x-auto w-full max-w-4xl'>
         <table className='min-w-full bg-white shadow-md rounded-lg overflow-hidden'>
           <thead className='bg-customBorder'>
-            <tr>
-            
+            <tr>          
             <th className='py-2 px-4 border-b border-customBorder'>Service</th>
               <th className='py-2 px-4 border-b border-customBorder'> Customer Name</th>
               <th className='py-2 px-4 border-b border-customBorder'>Email</th>
@@ -280,6 +284,8 @@ const OrderTable = () => {
             {
               data.map((item, index) => (
                 <tr key={index} className='bg-customBackground'>
+                 <td className='py-2 px-4 border-b border-customBorder text-center'>{(item?.Food?.name)?item?.Food?.name:"There is no data"}</td> 
+
                 <td className='py-2 px-4 border-b border-customBorder text-center'>{item.name}</td>
                   <td className='py-2 px-4 border-b border-customBorder text-center'>{item.email}</td>
                   <td className='py-2 px-4 border-b border-customBorder text-center'>{item.phone}</td>

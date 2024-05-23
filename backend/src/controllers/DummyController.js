@@ -4,12 +4,14 @@ const moment = require('moment');
 const PostDataDummy = async (req, res, next) => {
   try {
     const { firstname, lastname, phone, email, date, time, food } = req.body;
+    const name= firstname + lastname;
+    console.log(req.body);
     const dump = {
-      name: `${firstname} ${lastname}`, // Adding space between firstname and lastname
+      name: name, // Adding space between firstname and lastname
       email: email,
       phone: phone,
-      date: moment(date).toDate(), // Parse the date string to Date object
-      time: moment(time, "hh:mm A").toDate(), // Parse the time string to Date object
+      date:date.toString(), // Parse the date string to Date object
+      time: time.toString(), // Parse the time string to Date object
       Food: food // Changed to match the schema field name
     };
 

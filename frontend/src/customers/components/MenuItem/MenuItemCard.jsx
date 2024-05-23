@@ -33,7 +33,7 @@ const MenuItemCard = ({ item }) => {
       :item.food
     }
     console.log(FormData);
-    api.post("/api/dummy/postData", formData)
+    api.post("/api/dummy/postData", FormData)
       .then(response => {
         console.log(response);
         alert("Appointment confirmed");
